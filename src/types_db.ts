@@ -323,12 +323,13 @@ export type TablesInsert<
       Insert: infer I
     }
     ? I
+    : never
   : PublicTableNameOrOptions extends keyof Database["public"]["Tables"]
   ? Database["public"]["Tables"][PublicTableNameOrOptions] extends {
       Insert: infer I
     }
     ? I
-  : never
+    : never
   : never
 
 export type TablesUpdate<
