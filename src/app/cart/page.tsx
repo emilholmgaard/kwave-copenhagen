@@ -79,13 +79,13 @@ export default function CartPage() {
               {cartAlbums.map(({ album, quantity }) => (
                 <div
                   key={album.id}
-                  className="group relative flex flex-row gap-2 rounded-3xl bg-black/60 backdrop-blur-sm p-2 shadow-md ring-1 ring-white/10 transition-all hover:ring-white/20"
+                  className="group relative flex flex-row items-stretch gap-2 rounded-3xl bg-black/60 backdrop-blur-sm p-2 shadow-md ring-1 ring-white/10 transition-all hover:ring-white/20"
                 >
-                  <Link href={`/shop/${album.slug}`} className="shrink-0">
+                  <Link href={`/shop/${album.slug}`} className="relative w-2/5 flex-shrink-0 overflow-hidden rounded-2xl">
                     <img
                       alt={album.title}
                       src={album.image}
-                      className="size-32 rounded-2xl object-cover sm:size-40"
+                      className="h-full w-full object-cover transition-transform group-data-hover:scale-110"
                     />
                   </Link>
                   <div className="flex flex-1 flex-col p-4">
