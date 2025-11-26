@@ -7,7 +7,6 @@ import { useState } from 'react'
 export function AddToCartButton({
   albumId,
   quantity = 1,
-  versionId: _versionId,
   disabled = false,
 }: {
   albumId: string
