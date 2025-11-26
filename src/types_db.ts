@@ -344,12 +344,13 @@ export type TablesUpdate<
       Update: infer U
     }
     ? U
+    : never
   : PublicTableNameOrOptions extends keyof Database["public"]["Tables"]
   ? Database["public"]["Tables"][PublicTableNameOrOptions] extends {
       Update: infer U
     }
     ? U
-  : never
+    : never
   : never
 
 export type Enums<

@@ -23,7 +23,7 @@ export const createClient = async () => {
         set(name: string, value: string, options: CookieOptions) {
           try {
             cookieStore.set({ name, value, ...options });
-          } catch (error) {
+          } catch {
             // If the set method is called from a Server Component, an error may occur
             // This can be ignored if there is middleware refreshing user sessions
           }
@@ -32,7 +32,7 @@ export const createClient = async () => {
         remove(name: string, options: CookieOptions) {
           try {
             cookieStore.set({ name, value: '', ...options });
-          } catch (error) {
+          } catch {
             // If the remove method is called from a Server Component, an error may occur
             // This can be ignored if there is middleware refreshing user sessions
           }

@@ -39,7 +39,7 @@ export const getUserDetails = cache(async (supabase: SupabaseClient) => {
 });
 
 export const getOrders = cache(async (supabase: SupabaseClient) => {
-  const { data: orders, error } = await supabase
+  const { data: orders } = await supabase
     .from('orders')
     .select('*')
     .order('created_at', { ascending: false });
