@@ -9,6 +9,7 @@ import { getAlbums } from '@/data/albums'
 import { getPopularArtists } from '@/data/artists'
 import { ChevronRightIcon } from '@heroicons/react/16/solid'
 import type { Metadata } from 'next'
+import { AlbumSection } from '@/components/album-section'
 
 export const metadata: Metadata = {
   description:
@@ -78,10 +79,7 @@ async function FeaturedAlbums() {
             </div>
             <div className="product-teaser__content relative flex min-h-[600px] flex-col justify-between p-8">
               <div className="product-teaser__header">
-                <span className="chip chip--small chip--white inline-block rounded-full bg-white/20 px-3 py-1 text-xs font-medium text-white backdrop-blur-sm">
-                  Populært produkt
-                </span>
-                <h2 className="product-teaser__heading mt-6 text-3xl font-semibold leading-tight text-white">
+                <h2 className="product-teaser__heading text-3xl font-semibold leading-tight text-white">
                   {album.title}
                 </h2>
                 <p className="product-teaser__text mt-4 text-base leading-relaxed text-gray-200">
@@ -175,50 +173,58 @@ async function ShopSection() {
               <p className="mt-6 text-2xl font-medium text-gray-500 dark:text-gray-400">
                 Vær først til at få de nyeste K-pop albums, photobooks og merchandise. Forudbestil nu og sikre dig eksklusive fordele og tidlig levering.
               </p>
-              <div className="mt-6 grid grid-cols-1 gap-6 sm:mt-8 lg:grid-cols-2 lg:grid-rows-3">
-                <div className="text-left">
-                  <h4 className="text-xs font-medium text-gray-400 dark:text-gray-500 uppercase tracking-wider">Kontrol</h4>
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-2 mb-3">Kontrollører</h3>
-                  <p className="text-sm/6 text-gray-500 dark:text-gray-400">
-                    Professionelt uddannede kontrollører med kontrolløruddannelse og idrætskontrollørkort. Sikrer effektiv kontrol til events og virksomheder.
-                  </p>
-                </div>
-                <div className="text-left">
-                  <h4 className="text-xs font-medium text-gray-400 dark:text-gray-500 uppercase tracking-wider">Natteliv</h4>
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-2 mb-3">Dørmænd</h3>
-                  <p className="text-sm/6 text-gray-500 dark:text-gray-400">
-                    Erfarne dørmænd med dørmandskort der sikrer tryghed og orden. Vagttjenester til natklubber, barer og events.
-                  </p>
-                </div>
-                <div className="text-left">
-                  <h4 className="text-xs font-medium text-gray-400 dark:text-gray-500 uppercase tracking-wider">Events</h4>
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-2 mb-3">Eventvagter</h3>
-                  <p className="text-sm/6 text-gray-500 dark:text-gray-400">
-                    Specialiserede eventvagter til koncerter, festivaler og private arrangementer. Sikkerhedsvagter der sikrer tryghed.
-                  </p>
-                </div>
-                <div className="text-left">
-                  <h4 className="text-xs font-medium text-gray-400 dark:text-gray-500 uppercase tracking-wider">Bevogtning</h4>
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-2 mb-3">Vagter</h3>
-                  <p className="text-sm/6 text-gray-500 dark:text-gray-400">
-                    Uddannede vagter med vagtuddannelse der sikrer effektiv overvågning og beskyttelse. Sikkerhedsvagter til virksomheder og private lokaler.
-                  </p>
-                </div>
-                <div className="text-left">
-                  <h4 className="text-xs font-medium text-gray-400 dark:text-gray-500 uppercase tracking-wider">Beskyttelse</h4>
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-2 mb-3">Personbeskyttelse</h3>
-                  <p className="text-sm/6 text-gray-500 dark:text-gray-400">
-                    Diskret og erfaren personbeskyttelse til VIP og privatpersoner. Bodyguard services og sikkerhedsassistance.
-                  </p>
-                </div>
-                <div className="text-left">
-                  <h4 className="text-xs font-medium text-gray-400 dark:text-gray-500 uppercase tracking-wider">Patruljering</h4>
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-2 mb-3">Rundering</h3>
-                  <p className="text-sm/6 text-gray-500 dark:text-gray-400">
-                    Regelmæssig patruljering og kontrol der forebygger indbrud og hærværk. Vagttjenester til boligområder og erhvervsejendomme.
-                  </p>
-                </div>
-              </div>
+              <AlbumSection
+                albums={[
+                  {
+                    artist: 'WayV',
+                    title: 'Winter Special Album',
+                    description: 'Winter Special Album - Begrænsede og eksklusive albumudgaver med særlige fotobooks, signerede kort og unikt merchandise.',
+                    price: '219,95 DKK',
+                    albumId: 'wayv-winter-special',
+                    isPreOrder: true,
+                  },
+                  {
+                    artist: 'ITZY',
+                    title: 'TUNNEL VISION',
+                    description: 'TUNNEL VISION - Begrænsede og eksklusive albumudgaver med særlige fotobooks, signerede kort og unikt merchandise.',
+                    price: '169,95 DKK',
+                    albumId: 'itzy-tunnel-vision',
+                    isPreOrder: true,
+                  },
+                  {
+                    artist: 'TAEYEON',
+                    title: 'Panorama',
+                    description: 'Panorama - Begrænsede og eksklusive albumudgaver med særlige fotobooks, signerede kort og unikt merchandise.',
+                    price: '249,95 DKK',
+                    albumId: 'taeyeon-panorama',
+                    isPreOrder: true,
+                  },
+                  {
+                    artist: 'tripleS msnz',
+                    title: 'Beyond Beauty',
+                    description: 'Beyond Beauty - Begrænsede og eksklusive albumudgaver med særlige fotobooks, signerede kort og unikt merchandise.',
+                    price: '219,95 DKK',
+                    albumId: 'triples-msnz-beyond-beauty',
+                    isPreOrder: true,
+                  },
+                  {
+                    artist: 'RESCENE',
+                    title: 'lip bomb',
+                    description: 'lip bomb - Begrænsede og eksklusive albumudgaver med særlige fotobooks, signerede kort og unikt merchandise.',
+                    price: '219,95 DKK',
+                    albumId: 'rescene-lip-bomb',
+                    isPreOrder: true,
+                  },
+                  {
+                    artist: 'CHA EUN-WOO (ASTRO)',
+                    title: 'ELSE',
+                    description: 'ELSE - Begrænsede og eksklusive albumudgaver med særlige fotobooks, signerede kort og unikt merchandise.',
+                    price: '219,95 DKK',
+                    albumId: 'cha-eun-woo-else',
+                    isPreOrder: true,
+                  },
+                ]}
+              />
               <div className="relative h-96 sm:h-[500px] md:h-[600px] lg:hidden mt-8 mb-8">
                 <div className="absolute inset-2 rounded-4xl ring-1 ring-black/5 ring-inset overflow-hidden">
                   <img

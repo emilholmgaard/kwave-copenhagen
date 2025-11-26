@@ -33,35 +33,7 @@ export interface Album {
   }
 }
 
-export const albums: Album[] = [
-  {
-    id: '9',
-    title: 'ALLDAY PROJECT (MERCH ver.)',
-    artist: 'ALLDAY PROJECT',
-    slug: 'allday-project-merch',
-    price: 319.95,
-    currency: 'DKK',
-    image: '/short.webp',
-    imageShort: '/short.webp',
-    imageLong: '/long.webp',
-    description:
-      '[PRE-ORDER] ALLDAY PROJECT - ALLDAY PROJECT (MERCH ver.) - Limited edition merchandise bundle featuring exclusive collectibles, premium packaging, and special edition items. Perfect for collectors and fans.',
-    inStock: true,
-    category: 'k-pop',
-    releaseDate: '2025-12-08',
-    versions: [
-      { id: 'suede', name: 'SUEDE DRAWSTRING ver.', price: 319.95 },
-      { id: 'gloves', name: 'FINGERLESS GLOVES ver.', price: 319.95 },
-    ],
-    tracklist: [
-      'All Day',
-      'Project One',
-      'Merch Theme',
-      'Special Edition',
-      'Bonus Track',
-    ],
-  },
-]
+export const albums: Album[] = []
 
 export function getAlbums(category?: string): Album[] {
   let filtered = albums.filter((album) => {

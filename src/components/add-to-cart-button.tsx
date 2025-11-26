@@ -9,12 +9,14 @@ export function AddToCartButton({
   quantity = 1,
   disabled = false,
   type = 'album',
+  className,
 }: {
   albumId: string
   quantity?: number
   versionId?: string
   disabled?: boolean
   type?: 'album' | 'lightstick' | 'magazine' | 'photobook' | 'greeting' | 'dvd'
+  className?: string
 }) {
   const { addItem, updateQuantity } = useCart()
   const [added, setAdded] = useState(false)
@@ -39,6 +41,7 @@ export function AddToCartButton({
       variant="secondary"
       onClick={handleClick}
       data-disabled={disabled ? true : undefined}
+      className={className}
     >
       {added ? 'Added!' : 'Add to Cart'}
     </Button>
