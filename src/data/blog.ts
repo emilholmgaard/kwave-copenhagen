@@ -1,4 +1,5 @@
 export interface BlogPost {
+  slug: string
   title: string
   excerpt: string
   publishedAt: string
@@ -17,11 +18,35 @@ export interface BlogPost {
   body?: string
 }
 
-export function getPost(slug: string): Promise<{ data: BlogPost | null }> {
+export function getPost(_slug: string): Promise<{ data: BlogPost | null }> {
   // Return empty for now - can be implemented later
   return Promise.resolve({ data: null })
 }
 
-export function getPosts() {
-  return []
+export function getPosts(
+  _start?: number,
+  _end?: number,
+  _category?: string,
+): Promise<{ data: BlogPost[] }> {
+  return Promise.resolve({ data: [] })
+}
+
+export function getPostsCount(_category?: string): Promise<{ data: number }> {
+  return Promise.resolve({ data: 0 })
+}
+
+export function getPostsForFeed(): Promise<{ data: BlogPost[] }> {
+  return Promise.resolve({ data: [] })
+}
+
+export function getFeaturedPosts(
+  _count: number,
+): Promise<{ data: BlogPost[] }> {
+  return Promise.resolve({ data: [] })
+}
+
+export function getCategories(): Promise<{
+  data: Array<{ slug: string; title: string }>
+}> {
+  return Promise.resolve({ data: [] })
 }
