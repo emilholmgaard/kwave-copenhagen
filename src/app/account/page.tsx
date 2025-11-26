@@ -76,7 +76,18 @@ export default async function Account() {
                   <div>
                     <h3 className="text-sm font-medium text-gray-400">Subscription</h3>
                     <p className="mt-2 text-lg text-white">
-                      {subscription.prices?.products?.name || 'Active'}
+                      {(() => {
+                        type SubscriptionWithRelations = Tables<'subscriptions'> & {
+                          prices?: Array<{
+                            products?: { name: string | null } | null;
+                          } | null> | null;
+                        };
+                        const sub = subscription as SubscriptionWithRelations;
+                        const price = Array.isArray(sub.prices) && sub.prices.length > 0 
+                          ? sub.prices[0] 
+                          : null;
+                        return price?.products?.name || 'Active';
+                      })()}
                     </p>
                   </div>
                 )}

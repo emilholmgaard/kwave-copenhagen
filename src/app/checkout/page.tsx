@@ -10,7 +10,7 @@ import { Heading, Subheading } from '@/components/text'
 import { useCart } from '@/contexts/cart-context'
 import { ChevronLeftIcon, CreditCardIcon } from '@heroicons/react/16/solid'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 export default function CheckoutPage() {
   const router = useRouter()
@@ -18,6 +18,7 @@ export default function CheckoutPage() {
   const cartAlbums = getCartAlbums()
   const total = getTotalPrice()
   const [isProcessing, setIsProcessing] = useState(false)
+  const [isClient, setIsClient] = useState(false)
 
   const [formData, setFormData] = useState({
     email: '',
@@ -33,8 +34,14 @@ export default function CheckoutPage() {
     cvv: '',
   })
 
-  if (cartAlbums.length === 0) {
-    router.push('/cart')
+  useEffect(() => {
+    setIsClient(true)
+    if (cartAlbums.length === 0) {
+      router.push('/cart')
+    }
+  }, [cartAlbums.length, router])
+
+  if (!isClient || cartAlbums.length === 0) {
     return null
   }
 

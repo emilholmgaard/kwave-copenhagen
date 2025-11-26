@@ -14,9 +14,9 @@ import { signInWithPassword } from '@/utils/auth-helpers/server'
 import { signUp } from '@/utils/auth-helpers/server'
 import { handleRequest } from '@/utils/auth-helpers/client'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 
-export default function Login() {
+function LoginForm() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const [isSignUp, setIsSignUp] = useState(false)
@@ -62,11 +62,7 @@ export default function Login() {
   }
 
   return (
-    <main className="overflow-hidden">
-      <GradientBackground />
-      <Container>
-        <Navbar />
-        <div className="flex min-h-[calc(100vh-200px)] items-center justify-center py-16">
+    <div className="flex min-h-[calc(100vh-200px)] items-center justify-center py-16">
           <div className="w-full max-w-md rounded-xl bg-white/5 backdrop-blur-sm shadow-md ring-1 ring-white/10">
             <form onSubmit={handleSubmit} className="p-7 sm:p-11">
               <div className="flex items-start">
@@ -197,6 +193,18 @@ export default function Login() {
             </div>
           </div>
         </div>
+  )
+}
+
+export default function Login() {
+  return (
+    <main className="overflow-hidden">
+      <GradientBackground />
+      <Container>
+        <Navbar />
+        <Suspense fallback={<div className="flex min-h-[calc(100vh-200px)] items-center justify-center py-16"><div className="text-white">Loading...</div></div>}>
+          <LoginForm />
+        </Suspense>
       </Container>
       <Footer />
     </main>
