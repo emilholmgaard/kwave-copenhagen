@@ -6,7 +6,7 @@ import { Footer } from '@/components/footer'
 import { GradientBackground } from '@/components/gradient'
 import { Link } from '@/components/link'
 import { Navbar } from '@/components/navbar'
-import { Heading, Subheading } from '@/components/text'
+import { Heading, Lead, Subheading } from '@/components/text'
 import { useCart } from '@/contexts/cart-context'
 import {
   ChevronLeftIcon,
@@ -38,10 +38,10 @@ export default function CartPage() {
           <Navbar />
           <div className="mt-16 pb-24 text-center">
             <ShoppingBagIcon className="mx-auto size-16 text-gray-400" />
-            <Heading as="h1" className="mt-6">
+            <Heading as="h1" className="mt-6 text-white">
               Your cart is empty
             </Heading>
-            <p className="mt-4 text-gray-600">
+            <p className="mt-4 text-gray-400">
               Start shopping to add items to your cart.
             </p>
             <div className="mt-8">
@@ -63,6 +63,9 @@ export default function CartPage() {
         <Heading as="h1" className="mt-2">
           {totalItems} {totalItems === 1 ? 'item' : 'items'} in your cart
         </Heading>
+        <Lead className="mt-6 max-w-3xl">
+          Review your items and proceed to checkout when you&apos;re ready.
+        </Lead>
       </Container>
       <Container className="mt-16 pb-24">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-3">
@@ -71,7 +74,7 @@ export default function CartPage() {
               {cartAlbums.map(({ album, quantity }) => (
                 <div
                   key={album.id}
-                  className="flex flex-col gap-6 rounded-3xl bg-white p-6 shadow-md ring-1 ring-black/5 sm:flex-row"
+                  className="group relative flex flex-row gap-2 rounded-3xl bg-black/60 backdrop-blur-sm p-2 shadow-md ring-1 ring-white/10 transition-all hover:ring-white/20"
                 >
                   <Link href={`/shop/${album.slug}`} className="shrink-0">
                     <img
@@ -80,55 +83,59 @@ export default function CartPage() {
                       className="size-32 rounded-2xl object-cover sm:size-40"
                     />
                   </Link>
-                  <div className="flex flex-1 flex-col">
+                  <div className="flex flex-1 flex-col p-4">
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
                         <Link
                           href={`/shop/${album.slug}`}
-                          className="text-lg font-semibold text-gray-950 data-hover:text-gray-700"
+                          className="text-lg font-semibold text-white data-hover:text-gray-300"
                         >
                           {album.title}
                         </Link>
-                        <p className="mt-1 text-sm text-gray-600">
+                        <p className="mt-1 text-sm text-gray-300">
                           {album.artist}
                         </p>
-                        <p className="mt-2 text-lg font-semibold text-gray-950">
-                          {album.price} {album.currency}
-                        </p>
+                        <div className="mt-2 inline-flex items-center rounded-full bg-white/10 px-4 py-2">
+                          <span className="text-lg font-semibold text-white">
+                            {album.price} {album.currency}
+                          </span>
+                        </div>
                       </div>
                       <button
                         onClick={() => removeItem(album.id)}
-                        className="shrink-0 rounded-lg p-2 text-gray-400 data-hover:bg-gray-100 data-hover:text-gray-600"
+                        className="shrink-0 rounded-lg p-2 text-gray-400 transition-colors hover:bg-white/10 hover:text-red-400"
                         aria-label="Remove item"
                       >
                         <TrashIcon className="size-5" />
                       </button>
                     </div>
                     <div className="mt-6 flex items-center gap-4">
-                      <span className="text-sm font-medium text-gray-700">
+                      <span className="text-sm font-medium text-gray-300">
                         Quantity:
                       </span>
-                      <div className="flex items-center gap-2 rounded-lg border border-gray-200">
+                      <div className="flex items-center gap-2 rounded-full border border-white/20 bg-white/5">
                         <button
                           onClick={() => updateQuantity(album.id, quantity - 1)}
-                          className="rounded-l-lg p-2 text-gray-600 data-hover:bg-gray-100"
+                          className="rounded-l-full p-2 text-gray-300 transition-colors hover:bg-white/10"
                           aria-label="Decrease quantity"
                         >
                           <MinusIcon className="size-4" />
                         </button>
-                        <span className="min-w-[3rem] px-4 text-center font-medium">
+                        <span className="min-w-[3rem] px-4 text-center font-medium text-white">
                           {quantity}
                         </span>
                         <button
                           onClick={() => updateQuantity(album.id, quantity + 1)}
-                          className="rounded-r-lg p-2 text-gray-600 data-hover:bg-gray-100"
+                          className="rounded-r-full p-2 text-gray-300 transition-colors hover:bg-white/10"
                           aria-label="Increase quantity"
                         >
                           <PlusIcon className="size-4" />
                         </button>
                       </div>
-                      <div className="ml-auto text-lg font-semibold text-gray-950">
-                        {album.price * quantity} {album.currency}
+                      <div className="ml-auto inline-flex items-center rounded-full bg-white/10 px-4 py-2">
+                        <span className="text-lg font-semibold text-white">
+                          {album.price * quantity} {album.currency}
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -139,7 +146,7 @@ export default function CartPage() {
               <Button
                 variant="outline"
                 onClick={clearCart}
-                className="gap-2 text-red-600 data-hover:text-red-700"
+                className="gap-2 text-red-400 hover:text-red-300"
               >
                 <TrashIcon className="size-4" />
                 Clear Cart
@@ -147,21 +154,21 @@ export default function CartPage() {
             </div>
           </div>
           <div className="lg:col-span-1">
-            <div className="sticky top-24 rounded-3xl bg-white p-6 shadow-md ring-1 ring-black/5">
-              <h2 className="text-lg font-semibold text-gray-950">
+            <div className="sticky top-24 rounded-3xl bg-black/60 backdrop-blur-sm p-6 shadow-md ring-1 ring-white/10">
+              <h2 className="text-lg font-semibold text-white">
                 Order Summary
               </h2>
               <div className="mt-6 space-y-4">
-                <div className="flex justify-between text-sm text-gray-600">
+                <div className="flex justify-between text-sm text-gray-300">
                   <span>Subtotal ({totalItems} items)</span>
-                  <span className="font-medium">{total} DKK</span>
+                  <span className="font-medium text-white">{total} DKK</span>
                 </div>
-                <div className="flex justify-between text-sm text-gray-600">
+                <div className="flex justify-between text-sm text-gray-300">
                   <span>Shipping</span>
-                  <span className="font-medium">Free</span>
+                  <span className="font-medium text-white">Free</span>
                 </div>
-                <hr className="border-gray-200" />
-                <div className="flex justify-between text-lg font-semibold text-gray-950">
+                <hr className="border-white/10" />
+                <div className="flex justify-between text-lg font-semibold text-white">
                   <span>Total</span>
                   <span>{total} DKK</span>
                 </div>
