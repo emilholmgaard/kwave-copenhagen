@@ -126,7 +126,7 @@ export function AlbumPageClient({ album }: { album: Album }) {
                 onClick={() => setIsWhatsIncludedOpen(!isWhatsIncludedOpen)}
                 className="inline-flex items-center justify-center gap-2 rounded-full border border-transparent shadow-sm ring-1 ring-white/20 px-2 py-[calc(--spacing(1.5)-1px)] text-sm font-medium whitespace-nowrap text-white transition-all duration-200 hover:bg-white/10"
               >
-                <span>What's Included</span>
+                <span>What&apos;s Included</span>
                 {isWhatsIncludedOpen ? (
                   <ChevronUpIcon className="size-4" />
                 ) : (

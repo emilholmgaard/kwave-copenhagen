@@ -4,9 +4,8 @@ import { Footer } from '@/components/footer'
 import { Link } from '@/components/link'
 import { Navbar } from '@/components/navbar'
 import { Testimonials } from '@/components/testimonials'
-import { Heading, Subheading } from '@/components/text'
 import { getFeaturedAlbums } from '@/data/albums'
-import { ChevronRightIcon, ShoppingBagIcon } from '@heroicons/react/16/solid'
+import { ChevronRightIcon } from '@heroicons/react/16/solid'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -32,10 +31,10 @@ function Hero() {
         <div className="pt-16 pb-24 sm:pt-24 sm:pb-32 md:pt-32 md:pb-48">
           <div className="relative rounded-full px-3 py-1 text-sm/6 text-white ring-1 ring-white/10 hover:ring-white/20 inline-block">
             Populært produkt.{' '}
-            <a href="/shop" className="font-semibold text-gray-900 dark:text-white">
+            <Link href="/shop" className="font-semibold text-gray-900 dark:text-white">
               <span aria-hidden="true" className="absolute inset-0" />
               Se alle <span aria-hidden="true">&rarr;</span>
-            </a>
+            </Link>
           </div>
           <h1 className="mt-6 font-display text-5xl/[0.9] font-medium tracking-tight text-white sm:text-7xl/[0.8] md:text-8xl/[0.8]">
             Your K-pop album collection<br />

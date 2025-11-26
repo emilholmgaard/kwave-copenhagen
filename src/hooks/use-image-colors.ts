@@ -21,7 +21,7 @@ export function useImageColors(imageSrc: string | undefined): ImageColors | null
     // Try to set crossOrigin, but it might fail for same-origin images
     try {
       img.crossOrigin = 'anonymous'
-    } catch (e) {
+    } catch {
       // Ignore if crossOrigin can't be set
     }
     
