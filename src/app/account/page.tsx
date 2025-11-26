@@ -11,6 +11,8 @@ import { Footer } from '@/components/footer';
 import { GradientBackground } from '@/components/gradient';
 import { Navbar } from '@/components/navbar';
 import { Heading, Lead } from '@/components/text';
+import { Link } from '@/components/link';
+import type { Tables } from '@/types_db';
 
 function formatDate(dateString: string) {
   return new Date(dateString).toLocaleDateString('da-DK', {
@@ -86,7 +88,7 @@ export default async function Account() {
               <h2 className="text-lg font-semibold text-white mb-6">Order History</h2>
               {orders && orders.length > 0 ? (
                 <div className="space-y-4">
-                  {orders.map((order: any) => (
+                  {orders.map((order: Tables<'orders'>) => (
                     <div
                       key={order.id}
                       className="rounded-lg bg-white/5 p-4 ring-1 ring-white/10 hover:bg-white/10 transition-colors"
@@ -130,12 +132,12 @@ export default async function Account() {
               ) : (
                 <div className="text-center py-8">
                   <p className="text-gray-400">No orders yet</p>
-                  <a
+                  <Link
                     href="/shop"
                     className="mt-4 inline-block text-white hover:text-gray-300 underline"
                   >
                     Start shopping
-                  </a>
+                  </Link>
                 </div>
               )}
             </div>

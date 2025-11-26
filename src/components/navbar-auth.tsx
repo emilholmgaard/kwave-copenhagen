@@ -6,9 +6,10 @@ import { Link } from './link'
 import { PlusGridItem } from './plus-grid'
 import { SignOut } from '@/utils/auth-helpers/server'
 import { useRouter } from 'next/navigation'
+import type { User } from '@supabase/supabase-js'
 
 export function NavbarAuth() {
-  const [user, setUser] = useState<any>(null)
+  const [user, setUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(true)
   const router = useRouter()
 

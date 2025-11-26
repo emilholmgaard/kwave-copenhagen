@@ -18,20 +18,17 @@ export interface BlogPost {
   body?: string
 }
 
-export function getPost(_slug: string): Promise<{ data: BlogPost | null }> {
+export function getPost(slug: string): Promise<{ data: BlogPost | null }> {
   // Return empty for now - can be implemented later
+  // slug parameter is available for future implementation
   return Promise.resolve({ data: null })
 }
 
-export function getPosts(
-  _start?: number,
-  _end?: number,
-  _category?: string,
-): Promise<{ data: BlogPost[] }> {
+export function getPosts(): Promise<{ data: BlogPost[] }> {
   return Promise.resolve({ data: [] })
 }
 
-export function getPostsCount(_category?: string): Promise<{ data: number }> {
+export function getPostsCount(): Promise<{ data: number }> {
   return Promise.resolve({ data: 0 })
 }
 
@@ -39,9 +36,7 @@ export function getPostsForFeed(): Promise<{ data: BlogPost[] }> {
   return Promise.resolve({ data: [] })
 }
 
-export function getFeaturedPosts(
-  _count: number,
-): Promise<{ data: BlogPost[] }> {
+export function getFeaturedPosts(): Promise<{ data: BlogPost[] }> {
   return Promise.resolve({ data: [] })
 }
 

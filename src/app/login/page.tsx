@@ -55,7 +55,7 @@ export default function Login() {
       }
       // Don't set isSubmitting to false here - let the redirect happen
       // If there's an error, it will be in URL params and useEffect will handle it
-    } catch (err) {
+    } catch {
       setError('An error occurred. Please try again.')
       setIsSubmitting(false)
     }

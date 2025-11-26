@@ -65,7 +65,7 @@ export function FAQ() {
                 Frequently asked questions
               </Heading>
               <p className="mt-4 text-base/7 text-gray-400">
-                Can't find the answer you're looking for? Reach out to our{' '}
+                Can&apos;t find the answer you&apos;re looking for? Reach out to our{' '}
                 <a
                   href="#"
                   className="font-semibold text-indigo-400 hover:text-indigo-300"

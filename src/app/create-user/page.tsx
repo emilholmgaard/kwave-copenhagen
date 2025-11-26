@@ -44,7 +44,7 @@ export default function CreateUserPage() {
           router.push('/login')
         }, 2000)
       }
-    } catch (error) {
+    } catch {
       setMessage({ type: 'error', text: 'An error occurred. Please try again.' })
     } finally {
       setIsSubmitting(false)
