@@ -1,0 +1,137 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: Switzer, system-ui, sans-serif;
+
+  --radius-4xl: 2rem;
+}
+
+@keyframes move-x {
+  0% {
+    transform: translateX(var(--move-x-from));
+  }
+  100% {
+    transform: translateX(var(--move-x-to));
+  }
+}
+
+/* Blog content styling - matches PortableText design */
+.blog-content p {
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
+  font-size: 1rem;
+  line-height: 2rem;
+  color: rgb(55 65 81);
+}
+
+.blog-content p:first-child {
+  margin-top: 0;
+}
+
+.blog-content p:last-child {
+  margin-bottom: 0;
+}
+
+.blog-content h2 {
+  margin-top: 3rem;
+  margin-bottom: 2.5rem;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  color: rgb(3 7 18);
+}
+
+.blog-content h2:first-child {
+  margin-top: 0;
+}
+
+.blog-content h2:last-child {
+  margin-bottom: 0;
+}
+
+.blog-content h3 {
+  margin-top: 3rem;
+  margin-bottom: 2.5rem;
+  font-size: 1.25rem;
+  line-height: 2rem;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  color: rgb(3 7 18);
+}
+
+.blog-content h3:first-child {
+  margin-top: 0;
+}
+
+.blog-content h3:last-child {
+  margin-bottom: 0;
+}
+
+.blog-content blockquote {
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
+  padding-left: 1.5rem;
+  border-left: 2px solid rgb(209 213 219);
+  font-size: 1rem;
+  line-height: 2rem;
+  color: rgb(3 7 18);
+}
+
+.blog-content blockquote:first-child {
+  margin-top: 0;
+}
+
+.blog-content blockquote:last-child {
+  margin-bottom: 0;
+}
+
+.blog-content ul {
+  list-style-type: disc;
+  padding-left: 1rem;
+  font-size: 1rem;
+  line-height: 2rem;
+}
+
+.blog-content ul li {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  padding-left: 0.5rem;
+}
+
+.blog-content ol {
+  list-style-type: decimal;
+  padding-left: 1rem;
+  font-size: 1rem;
+  line-height: 2rem;
+}
+
+.blog-content ol li {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  padding-left: 0.5rem;
+}
+
+.blog-content strong {
+  font-weight: 600;
+  color: rgb(3 7 18);
+}
+
+.blog-content code {
+  font-size: 0.9375rem;
+  line-height: 2rem;
+  font-weight: 600;
+  color: rgb(3 7 18);
+}
+
+.blog-content a {
+  font-weight: 500;
+  color: rgb(3 7 18);
+  text-decoration: underline;
+  text-decoration-color: rgb(156 163 175);
+  text-underline-offset: 4px;
+}
+
+.blog-content a:hover {
+  text-decoration-color: rgb(75 85 99);
+}
