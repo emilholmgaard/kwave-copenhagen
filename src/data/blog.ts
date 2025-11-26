@@ -18,7 +18,7 @@ export interface BlogPost {
   body?: string
 }
 
-export function getPost(slug: string): Promise<{ data: BlogPost | null }> {
+export function getPost(_slug: string): Promise<{ data: BlogPost | null }> {
   // Return empty for now - can be implemented later
   // slug parameter is available for future implementation
   return Promise.resolve({ data: null })

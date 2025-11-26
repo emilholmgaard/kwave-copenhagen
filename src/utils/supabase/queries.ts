@@ -1,14 +1,15 @@
 import { SupabaseClient } from '@supabase/supabase-js';
 import { cache } from 'react';
+import type { Database } from '@/types_db';
 
-export const getUser = cache(async (supabase: SupabaseClient) => {
+export const getUser = cache(async (supabase: SupabaseClient<Database>) => {
   const {
     data: { user }
   } = await supabase.auth.getUser();
   return user;
 });
 
-export const getSubscription = cache(async (supabase: SupabaseClient) => {
+export const getSubscription = cache(async (supabase: SupabaseClient<Database>) => {
   const { data: subscription } = await supabase
     .from('subscriptions')
     .select('*, prices(*, products(*))')
@@ -18,7 +19,7 @@ export const getSubscription = cache(async (supabase: SupabaseClient) => {
   return subscription;
 });
 
-export const getProducts = cache(async (supabase: SupabaseClient) => {
+export const getProducts = cache(async (supabase: SupabaseClient<Database>) => {
   const { data: products } = await supabase
     .from('products')
     .select('*, prices(*)')
@@ -30,7 +31,7 @@ export const getProducts = cache(async (supabase: SupabaseClient) => {
   return products;
 });
 
-export const getUserDetails = cache(async (supabase: SupabaseClient) => {
+export const getUserDetails = cache(async (supabase: SupabaseClient<Database>) => {
   const { data: userDetails } = await supabase
     .from('users')
     .select('*')
@@ -38,7 +39,7 @@ export const getUserDetails = cache(async (supabase: SupabaseClient) => {
   return userDetails;
 });
 
-export const getOrders = cache(async (supabase: SupabaseClient) => {
+export const getOrders = cache(async (supabase: SupabaseClient<Database>) => {
   const { data: orders } = await supabase
     .from('orders')
     .select('*')
