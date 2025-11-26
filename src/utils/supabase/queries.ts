@@ -1,5 +1,6 @@
 import { cache } from 'react';
 import type { createClient } from '@/utils/supabase/server';
+import type { Tables } from '@/types_db';
 
 type SupabaseClient = Awaited<ReturnType<typeof createClient>>;
 
@@ -32,7 +33,7 @@ export const getProducts = cache(async (supabase: SupabaseClient) => {
   return products;
 });
 
-export const getUserDetails = cache(async (supabase: SupabaseClient) => {
+export const getUserDetails = cache(async (supabase: SupabaseClient): Promise<Tables<'users'> | null> => {
   const { data: userDetails } = await supabase
     .from('users')
     .select('*')
