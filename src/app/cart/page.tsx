@@ -76,13 +76,15 @@ export default function CartPage() {
                   key={album.id}
                   className="group relative flex flex-row gap-2 rounded-3xl bg-black/60 backdrop-blur-sm p-2 shadow-md ring-1 ring-white/10 transition-all hover:ring-white/20"
                 >
-                  <Link href={`/shop/${album.slug}`} className="shrink-0">
-                    <img
-                      alt={album.title}
-                      src={album.image}
-                      className="size-32 rounded-2xl object-cover sm:size-40"
-                    />
-                  </Link>
+                  <div className="relative w-32 flex-shrink-0 overflow-hidden rounded-2xl sm:w-40">
+                    <Link href={`/shop/${album.slug}`}>
+                      <img
+                        alt={album.title}
+                        src={album.image}
+                        className="h-full w-full object-cover"
+                      />
+                    </Link>
+                  </div>
                   <div className="flex flex-1 flex-col p-4">
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
@@ -97,7 +99,7 @@ export default function CartPage() {
                         </p>
                         <div className="mt-2 inline-flex items-center rounded-full bg-white/10 px-4 py-2">
                           <span className="text-lg font-semibold text-white">
-                            {album.price} {album.currency}
+                            {album.price.toFixed(2).replace('.', ',')} {album.currency}
                           </span>
                         </div>
                       </div>
@@ -134,7 +136,7 @@ export default function CartPage() {
                       </div>
                       <div className="ml-auto inline-flex items-center rounded-full bg-white/10 px-4 py-2">
                         <span className="text-lg font-semibold text-white">
-                          {album.price * quantity} {album.currency}
+                          {(album.price * quantity).toFixed(2).replace('.', ',')} {album.currency}
                         </span>
                       </div>
                     </div>
@@ -161,7 +163,7 @@ export default function CartPage() {
               <div className="mt-6 space-y-4">
                 <div className="flex justify-between text-sm text-gray-300">
                   <span>Subtotal ({totalItems} items)</span>
-                  <span className="font-medium text-white">{total} DKK</span>
+                  <span className="font-medium text-white">{total.toFixed(2).replace('.', ',')} DKK</span>
                 </div>
                 <div className="flex justify-between text-sm text-gray-300">
                   <span>Shipping</span>
@@ -170,7 +172,7 @@ export default function CartPage() {
                 <hr className="border-white/10" />
                 <div className="flex justify-between text-lg font-semibold text-white">
                   <span>Total</span>
-                  <span>{total} DKK</span>
+                  <span>{total.toFixed(2).replace('.', ',')} DKK</span>
                 </div>
               </div>
               <div className="mt-8 space-y-3">
