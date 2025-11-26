@@ -18,23 +18,29 @@ const WishlistContext = createContext<WishlistContextType | undefined>(undefined
 
 export function WishlistProvider({ children }: { children: React.ReactNode }) {
   const [items, setItems] = useState<WishlistItem[]>([])
+  const [isMounted, setIsMounted] = useState(false)
 
-  // Load wishlist from localStorage on mount
+  // Load wishlist from localStorage on mount (client-side only)
   useEffect(() => {
-    const saved = localStorage.getItem('wishlist')
-    if (saved) {
-      try {
-        setItems(JSON.parse(saved))
-      } catch (e) {
-        console.error('Failed to load wishlist from localStorage', e)
+    setIsMounted(true)
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('wishlist')
+      if (saved) {
+        try {
+          setItems(JSON.parse(saved))
+        } catch (e) {
+          console.error('Failed to load wishlist from localStorage', e)
+        }
       }
     }
   }, [])
 
-  // Save wishlist to localStorage whenever it changes
+  // Save wishlist to localStorage whenever it changes (client-side only)
   useEffect(() => {
-    localStorage.setItem('wishlist', JSON.stringify(items))
-  }, [items])
+    if (isMounted && typeof window !== 'undefined') {
+      localStorage.setItem('wishlist', JSON.stringify(items))
+    }
+  }, [items, isMounted])
 
   const addItem = (albumId: string) => {
     setItems((prev) => {

@@ -34,7 +34,9 @@ export function NavbarAuth() {
 
   const handleSignOut = async () => {
     const formData = new FormData()
-    formData.append('pathName', window.location.pathname)
+    if (typeof window !== 'undefined') {
+      formData.append('pathName', window.location.pathname)
+    }
     await SignOut(formData)
     router.push('/login')
     router.refresh()
