@@ -17,7 +17,7 @@ import {
 
 export default function CartPage() {
   const {
-    getCartAlbums,
+    getCartItems,
     updateQuantity,
     removeItem,
     clearCart,
@@ -31,7 +31,7 @@ export default function CartPage() {
   const FREE_SHIPPING_THRESHOLD = 800
   const SHIPPING_COST = 49 // Standard fragtpris
 
-  const cartAlbums = getCartAlbums()
+  const cartItems = getCartItems()
   const totalWithVAT = getTotalPrice()
   const totalWithoutVAT = totalWithVAT / (1 + VAT_RATE)
   const totalVAT = totalWithVAT - totalWithoutVAT
@@ -43,7 +43,7 @@ export default function CartPage() {
   const amountNeededForFreeShipping = Math.max(0, FREE_SHIPPING_THRESHOLD - totalWithVAT)
   const finalTotal = totalWithVAT + shippingCost
 
-  if (cartAlbums.length === 0) {
+  if (cartItems.length === 0) {
     return (
       <main className="overflow-hidden">
         <GradientBackground />
@@ -84,111 +84,123 @@ export default function CartPage() {
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-3">
           <div className="lg:col-span-2">
             <div className="space-y-6">
-              {cartAlbums.map(({ album, quantity }) => (
-                <div
-                  key={album.id}
-                  className="group relative flex flex-row items-stretch gap-2 rounded-3xl bg-black/60 backdrop-blur-sm p-2 shadow-md ring-1 ring-white/10 transition-all hover:ring-white/20"
-                >
-                  <Link href={`/shop/${album.slug}`} className="relative w-1/5 flex-shrink-0 overflow-hidden rounded-2xl">
-                    <img
-                      alt={album.title}
-                      src={album.image}
-                      className="h-full w-full object-cover transition-transform group-data-hover:scale-110"
-                    />
-                  </Link>
-                  <div className="flex flex-1 flex-col justify-between p-4">
-                    <div>
-                      <div className="flex items-start justify-between">
-                        <div className="flex-1">
-                          <div className="flex items-center gap-2 flex-wrap">
-                            <Link
-                              href={`/shop/${album.slug}`}
-                              className="text-lg font-semibold text-white data-hover:text-gray-300"
-                            >
-                              {album.title}
-                            </Link>
-                            {album.isPreOrder && (
-                              <span className="rounded-full bg-blue-500/20 px-2 py-1 text-xs font-medium text-blue-400">
-                                Pre-Order
+              {cartItems.map(({ item, quantity, type }) => {
+                const href = type === 'album' 
+                  ? `/shop/${item.slug}` 
+                  : `/shop/lightsticks/${item.slug}`
+                const isPreOrder = 'isPreOrder' in item ? item.isPreOrder : false
+                const inStock = 'inStock' in item ? item.inStock : false
+                const lowStock = 'lowStock' in item ? item.lowStock : false
+                
+                return (
+                  <div
+                    key={`${type}-${item.id}`}
+                    className="group relative flex flex-row items-stretch gap-2 rounded-3xl bg-black/60 backdrop-blur-sm p-2 shadow-md ring-1 ring-white/10 transition-all hover:ring-white/20"
+                  >
+                    <Link href={href} className="relative w-1/5 flex-shrink-0 overflow-hidden rounded-2xl">
+                      <img
+                        alt={item.title}
+                        src={item.image}
+                        className="h-full w-full object-cover transition-transform group-data-hover:scale-110"
+                      />
+                    </Link>
+                    <div className="flex flex-1 flex-col justify-between p-4">
+                      <div>
+                        <div className="flex items-start justify-between">
+                          <div className="flex-1">
+                            <div className="flex items-center gap-2 flex-wrap">
+                              <Link
+                                href={href}
+                                className="text-lg font-semibold text-white data-hover:text-gray-300"
+                              >
+                                {item.title}
+                              </Link>
+                              {isPreOrder && (
+                                <span className="rounded-full bg-blue-500/20 px-2 py-1 text-xs font-medium text-blue-400">
+                                  Pre-Order
+                                </span>
+                              )}
+                              {inStock && !lowStock && !isPreOrder && (
+                                <span className="rounded-full bg-green-500/20 px-2 py-1 text-xs font-medium text-green-400">
+                                  In Stock
+                                </span>
+                              )}
+                              {lowStock && !isPreOrder && (
+                                <span className="rounded-full bg-orange-500/20 px-2 py-1 text-xs font-medium text-orange-400">
+                                  Low Stock
+                                </span>
+                              )}
+                              {!inStock && !isPreOrder && (
+                                <span className="rounded-full bg-red-500/20 px-2 py-1 text-xs font-medium text-red-400">
+                                  Out of Stock
+                                </span>
+                              )}
+                              <span className="rounded-full bg-white/10 px-2 py-1 text-xs font-medium text-white capitalize">
+                                {type === 'album' ? 'Album' : 'Lightstick'}
                               </span>
-                            )}
-                            {album.inStock && !album.lowStock && !album.isPreOrder && (
-                              <span className="rounded-full bg-green-500/20 px-2 py-1 text-xs font-medium text-green-400">
-                                In Stock
-                              </span>
-                            )}
-                            {album.lowStock && !album.isPreOrder && (
-                              <span className="rounded-full bg-orange-500/20 px-2 py-1 text-xs font-medium text-orange-400">
-                                Low Stock
-                              </span>
-                            )}
-                            {!album.inStock && !album.isPreOrder && (
-                              <span className="rounded-full bg-red-500/20 px-2 py-1 text-xs font-medium text-red-400">
-                                Out of Stock
-                              </span>
-                            )}
+                            </div>
+                            <p className="mt-1 text-sm text-gray-300">
+                              {item.artist}
+                            </p>
                           </div>
-                          <p className="mt-1 text-sm text-gray-300">
-                            {album.artist}
-                          </p>
-                        </div>
-                        <button
-                          onClick={() => removeItem(album.id)}
-                          className="shrink-0 rounded-lg p-2 text-gray-400 transition-colors hover:bg-white/10 hover:text-red-400"
-                          aria-label="Remove item"
-                        >
-                          <TrashIcon className="size-5" />
-                        </button>
-                      </div>
-                      <div className="mt-4 flex flex-col gap-1">
-                        <div className="text-base font-semibold text-white">
-                          Enhedspris: {album.price.toFixed(2).replace('.', ',')} {album.currency}
-                        </div>
-                        <div className="text-xs text-gray-400">
-                          inkl. moms ({((album.price * VAT_RATE) / (1 + VAT_RATE)).toFixed(2).replace('.', ',')} {album.currency})
-                        </div>
-                        <div className="text-xs text-gray-500">
-                          ekskl. moms: {(album.price / (1 + VAT_RATE)).toFixed(2).replace('.', ',')} {album.currency}
-                        </div>
-                      </div>
-                    </div>
-                    <div className="mt-6 flex items-center justify-between">
-                      <div className="flex items-center gap-4">
-                        <span className="text-sm font-medium text-gray-300">
-                          Quantity:
-                        </span>
-                        <div className="flex items-center gap-2 rounded-full border border-white/20 bg-white/5">
                           <button
-                            onClick={() => updateQuantity(album.id, quantity - 1)}
-                            className="rounded-l-full p-2 text-gray-300 transition-colors hover:bg-white/10"
-                            aria-label="Decrease quantity"
+                            onClick={() => removeItem(item.id)}
+                            className="shrink-0 rounded-lg p-2 text-gray-400 transition-colors hover:bg-white/10 hover:text-red-400"
+                            aria-label="Remove item"
                           >
-                            <MinusIcon className="size-4" />
+                            <TrashIcon className="size-5" />
                           </button>
-                          <span className="min-w-[3rem] px-4 text-center font-medium text-white">
-                            {quantity}
+                        </div>
+                        <div className="mt-4 flex flex-col gap-1">
+                          <div className="text-base font-semibold text-white">
+                            Enhedspris: {item.price.toFixed(2).replace('.', ',')} {item.currency}
+                          </div>
+                          <div className="text-xs text-gray-400">
+                            inkl. moms ({((item.price * VAT_RATE) / (1 + VAT_RATE)).toFixed(2).replace('.', ',')} {item.currency})
+                          </div>
+                          <div className="text-xs text-gray-500">
+                            ekskl. moms: {(item.price / (1 + VAT_RATE)).toFixed(2).replace('.', ',')} {item.currency}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="mt-6 flex items-center justify-between">
+                        <div className="flex items-center gap-4">
+                          <span className="text-sm font-medium text-gray-300">
+                            Quantity:
                           </span>
-                          <button
-                            onClick={() => updateQuantity(album.id, quantity + 1)}
-                            className="rounded-r-full p-2 text-gray-300 transition-colors hover:bg-white/10"
-                            aria-label="Increase quantity"
-                          >
-                            <PlusIcon className="size-4" />
-                          </button>
+                          <div className="flex items-center gap-2 rounded-full border border-white/20 bg-white/5">
+                            <button
+                              onClick={() => updateQuantity(item.id, quantity - 1)}
+                              className="rounded-l-full p-2 text-gray-300 transition-colors hover:bg-white/10"
+                              aria-label="Decrease quantity"
+                            >
+                              <MinusIcon className="size-4" />
+                            </button>
+                            <span className="min-w-[3rem] px-4 text-center font-medium text-white">
+                              {quantity}
+                            </span>
+                            <button
+                              onClick={() => updateQuantity(item.id, quantity + 1)}
+                              className="rounded-r-full p-2 text-gray-300 transition-colors hover:bg-white/10"
+                              aria-label="Increase quantity"
+                            >
+                              <PlusIcon className="size-4" />
+                            </button>
+                          </div>
                         </div>
-                      </div>
-                      <div className="flex flex-col items-end gap-1">
-                        <div className="text-lg font-semibold text-white">
-                          Samlet: {(album.price * quantity).toFixed(2).replace('.', ',')} {album.currency}
-                        </div>
-                        <div className="text-xs text-gray-400">
-                          ekskl. moms: {((album.price * quantity) / (1 + VAT_RATE)).toFixed(2).replace('.', ',')} {album.currency}
+                        <div className="flex flex-col items-end gap-1">
+                          <div className="text-lg font-semibold text-white">
+                            Samlet: {(item.price * quantity).toFixed(2).replace('.', ',')} {item.currency}
+                          </div>
+                          <div className="text-xs text-gray-400">
+                            ekskl. moms: {((item.price * quantity) / (1 + VAT_RATE)).toFixed(2).replace('.', ',')} {item.currency}
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                )
+              })}
             </div>
             <div className="mt-8">
               <Button

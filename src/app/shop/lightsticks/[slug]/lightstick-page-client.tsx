@@ -7,22 +7,15 @@ import { Footer } from '@/components/footer'
 import { Navbar } from '@/components/navbar'
 import { Heading, Subheading } from '@/components/text'
 import { FAQ } from '@/components/faq'
-import type { Album } from '@/data/albums'
+import type { Lightstick } from '@/data/lightsticks'
 import { ChevronLeftIcon, ChevronDownIcon, ChevronUpIcon, MinusIcon, PlusIcon, XMarkIcon } from '@heroicons/react/16/solid'
 import dayjs from 'dayjs'
 import { useState } from 'react'
 
-export function AlbumPageClient({ album }: { album: Album }) {
-  const [selectedVersion, setSelectedVersion] = useState<string>(
-    album.versions && album.versions.length > 0 ? album.versions[0].id : ''
-  )
+export function LightstickPageClient({ lightstick }: { lightstick: Lightstick }) {
   const [quantity, setQuantity] = useState(1)
-  const [isWhatsIncludedOpen, setIsWhatsIncludedOpen] = useState(false)
+  const [isFeaturesOpen, setIsFeaturesOpen] = useState(false)
   const [fullscreenImage, setFullscreenImage] = useState<string | null>(null)
-
-  const currentPrice = album.versions && selectedVersion
-    ? album.versions.find(v => v.id === selectedVersion)?.price || album.price
-    : album.price
 
   const handleQuantityChange = (newQuantity: number) => {
     if (newQuantity >= 1) {
@@ -31,8 +24,8 @@ export function AlbumPageClient({ album }: { album: Album }) {
   }
 
   // Determine which images to show
-  const displayImage = album.imageShort || album.imageLong || album.image
-  const hasMultipleImages = album.imageShort && album.imageLong
+  const displayImage = lightstick.imageShort || lightstick.imageLong || lightstick.image
+  const hasMultipleImages = lightstick.imageShort && lightstick.imageLong
 
   return (
     <main>
@@ -42,17 +35,17 @@ export function AlbumPageClient({ album }: { album: Album }) {
           <div className="flex flex-col gap-4">
             {hasMultipleImages ? (
               <>
-                <div className="flex items-center cursor-pointer" onClick={() => setFullscreenImage(album.imageShort!)}>
+                <div className="flex items-center cursor-pointer" onClick={() => setFullscreenImage(lightstick.imageShort!)}>
                   <img
-                    alt={album.title}
-                    src={album.imageShort}
+                    alt={lightstick.title}
+                    src={lightstick.imageShort}
                     className="w-full rounded-3xl shadow-2xl ring-1 ring-black/5 transition-transform hover:scale-[1.02]"
                   />
                 </div>
-                <div className="flex items-center cursor-pointer" onClick={() => setFullscreenImage(album.imageLong!)}>
+                <div className="flex items-center cursor-pointer" onClick={() => setFullscreenImage(lightstick.imageLong!)}>
                   <img
-                    alt={album.title}
-                    src={album.imageLong}
+                    alt={lightstick.title}
+                    src={lightstick.imageLong}
                     className="w-full rounded-3xl shadow-2xl ring-1 ring-black/5 transition-transform hover:scale-[1.02]"
                   />
                 </div>
@@ -60,7 +53,7 @@ export function AlbumPageClient({ album }: { album: Album }) {
             ) : (
               <div className="flex items-center cursor-pointer" onClick={() => setFullscreenImage(displayImage)}>
                 <img
-                  alt={album.title}
+                  alt={lightstick.title}
                   src={displayImage}
                   className="w-full rounded-3xl shadow-2xl ring-1 ring-black/5 transition-transform hover:scale-[1.02]"
                 />
@@ -68,43 +61,43 @@ export function AlbumPageClient({ album }: { album: Album }) {
             )}
           </div>
           <div className={`flex flex-col relative z-10 ${hasMultipleImages ? 'lg:sticky lg:top-24 lg:max-h-[calc(100vh-6rem)] lg:overflow-y-auto lg:overflow-x-visible lg:pb-8 lg:px-2' : 'justify-center'}`}>
-            <Subheading>{album.artist}</Subheading>
+            <Subheading>{lightstick.artist}</Subheading>
             <Heading as="h1" className="mt-2">
-              {album.title}
+              {lightstick.title}
             </Heading>
             <div className="mt-6 flex items-center gap-4">
               <div className="text-4xl font-semibold text-white">
-                {currentPrice.toFixed(2).replace('.', ',')} {album.currency}
+                {lightstick.price.toFixed(2).replace('.', ',')} {lightstick.currency}
               </div>
-              {album.isPreOrder && (
+              {lightstick.isPreOrder && (
                 <span className="rounded-full bg-blue-500/20 px-3 py-1 text-sm font-medium text-blue-400 transition-all duration-200 hover:bg-blue-500/30 hover:scale-105 cursor-default">
                   Pre-Order
                 </span>
               )}
-              {album.inStock && !album.lowStock && !album.isPreOrder && (
+              {lightstick.inStock && !lightstick.lowStock && !lightstick.isPreOrder && (
                 <span className="rounded-full bg-green-500/20 px-3 py-1 text-sm font-medium text-green-400 transition-all duration-200 hover:bg-green-500/30 hover:scale-105 cursor-default">
                   In Stock
                 </span>
               )}
-              {album.lowStock && !album.isPreOrder && (
+              {lightstick.lowStock && !lightstick.isPreOrder && (
                 <span className="rounded-full bg-orange-500/20 px-3 py-1 text-sm font-medium text-orange-400 transition-all duration-200 hover:bg-orange-500/30 hover:scale-105 cursor-default">
                   Low Stock
                 </span>
               )}
-              {!album.inStock && !album.isPreOrder && (
+              {!lightstick.inStock && !lightstick.isPreOrder && (
                 <span className="rounded-full bg-red-500/20 px-3 py-1 text-sm font-medium text-red-400 transition-all duration-200 hover:bg-red-500/30 hover:scale-105 cursor-default">
                   Out of Stock
                 </span>
               )}
             </div>
-            <p className="mt-6 text-base/7 text-gray-300">{album.description}</p>
+            <p className="mt-6 text-base/7 text-gray-300">{lightstick.description}</p>
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <div>
                 <span className="text-sm font-medium text-white">
                   Release Date:
                 </span>{' '}
                 <span className="text-sm text-gray-400">
-                  {dayjs(album.releaseDate).format('MMMM D, YYYY')}
+                  {dayjs(lightstick.releaseDate).format('MMMM D, YYYY')}
                 </span>
               </div>
               <div>
@@ -112,86 +105,37 @@ export function AlbumPageClient({ album }: { album: Album }) {
                   Category:
                 </span>{' '}
                 <span className="text-sm text-gray-400 capitalize">
-                  {album.category}
+                  {lightstick.category}
                 </span>
               </div>
             </div>
-            <div className="mt-8 px-1">
-              <button
-                onClick={() => setIsWhatsIncludedOpen(!isWhatsIncludedOpen)}
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-transparent shadow-sm ring-1 ring-white/20 px-2 py-[calc(--spacing(1.5)-1px)] text-sm font-medium whitespace-nowrap text-white transition-all duration-200 hover:bg-white/10"
-              >
-                <span>What&apos;s Included</span>
-                {isWhatsIncludedOpen ? (
-                  <ChevronUpIcon className="size-4" />
-                ) : (
-                  <ChevronDownIcon className="size-4" />
-                )}
-              </button>
-              {isWhatsIncludedOpen && (
-                <div className="mt-2 flex flex-wrap gap-2">
-                  {(album.albumContent && album.albumContent.length > 0 ? album.albumContent : [
-                    'CD Album',
-                    'Photo Book',
-                    'Photo Cards (Random)',
-                    'Poster',
-                    'Sticker Sheet',
-                  ]).map((item, index) => (
-                    <span
-                      key={index}
-                      className="inline-flex items-center justify-center rounded-full border border-transparent shadow-sm ring-1 ring-white/20 px-2 py-[calc(--spacing(1.5)-1px)] text-sm font-medium whitespace-nowrap text-white"
-                    >
-                      {item}
-                    </span>
-                  ))}
-                </div>
-              )}
-            </div>
-            {album.tracklist && album.tracklist.length > 0 && (
+            {lightstick.features && lightstick.features.length > 0 && (
               <div className="mt-8 px-1">
-                <h3 className="text-lg font-semibold text-white">
-                  Tracklist
-                </h3>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {album.tracklist.map((track, index) => (
-                    <span
-                      key={index}
-                      className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-3 py-1.5 text-sm text-gray-300 transition-all duration-200 hover:bg-white/10 hover:border-white/30 hover:scale-105 cursor-default"
-                      style={{ transformOrigin: 'center' }}
-                    >
-                      <span className="flex size-5 items-center justify-center rounded-full bg-white/10 text-xs font-medium text-white">
-                        {index + 1}
+                <button
+                  onClick={() => setIsFeaturesOpen(!isFeaturesOpen)}
+                  className="inline-flex items-center justify-center gap-2 rounded-full border border-transparent shadow-sm ring-1 ring-white/20 px-2 py-[calc(--spacing(1.5)-1px)] text-sm font-medium whitespace-nowrap text-white transition-all duration-200 hover:bg-white/10"
+                >
+                  <span>Features</span>
+                  {isFeaturesOpen ? (
+                    <ChevronUpIcon className="size-4" />
+                  ) : (
+                    <ChevronDownIcon className="size-4" />
+                  )}
+                </button>
+                {isFeaturesOpen && (
+                  <div className="mt-2 flex flex-wrap gap-2">
+                    {lightstick.features.map((feature, index) => (
+                      <span
+                        key={index}
+                        className="inline-flex items-center justify-center rounded-full border border-transparent shadow-sm ring-1 ring-white/20 px-2 py-[calc(--spacing(1.5)-1px)] text-sm font-medium whitespace-nowrap text-white"
+                      >
+                        {feature}
                       </span>
-                      {track}
-                    </span>
-                  ))}
-                </div>
+                    ))}
+                  </div>
+                )}
               </div>
             )}
-            <div className="mt-8 px-1">
-              <label className="block text-sm font-medium text-white mb-3">
-                Choose version
-              </label>
-              {album.versions && album.versions.length > 0 ? (
-                <div className="flex flex-wrap gap-2">
-                  {album.versions.map((version) => (
-                    <button
-                      key={version.id}
-                      onClick={() => setSelectedVersion(version.id)}
-                      data-selected={selectedVersion === version.id ? true : undefined}
-                      className="rounded-full border border-white/20 bg-white/5 px-4 py-2 text-sm font-medium text-gray-300 data-selected:bg-white data-selected:text-gray-950 transition-all duration-200 hover:bg-white/10 hover:border-white/30 hover:scale-105"
-                      style={{ transformOrigin: 'center' }}
-                    >
-                      {version.name}
-                    </button>
-                  ))}
-                </div>
-              ) : (
-                <div className="rounded-full border border-white/20 bg-white/5 px-4 py-2 text-sm font-medium text-gray-300">
-                  Standard Edition
-                </div>
-              )}
-            </div>
             <div className="mt-8">
               <label className="block text-sm font-medium text-white mb-3">
                 Quantity
@@ -217,17 +161,17 @@ export function AlbumPageClient({ album }: { album: Album }) {
                   </button>
                 </div>
                 <div className="text-sm text-gray-400">
-                  Total: <span className="font-semibold text-white">{(currentPrice * quantity).toFixed(2).replace('.', ',')} {album.currency}</span>
+                  Total: <span className="font-semibold text-white">{(lightstick.price * quantity).toFixed(2).replace('.', ',')} {lightstick.currency}</span>
                 </div>
               </div>
             </div>
             <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-              {album.inStock || album.isPreOrder ? (
+              {lightstick.inStock || lightstick.isPreOrder ? (
                 <>
                   <AddToCartButton 
-                    albumId={album.id} 
+                    albumId={lightstick.id} 
                     quantity={quantity}
-                    versionId={selectedVersion || undefined}
+                    type="lightstick"
                   />
                   <Button variant="outline" href="/checkout">
                     Buy Now
@@ -266,7 +210,7 @@ export function AlbumPageClient({ album }: { album: Album }) {
           </button>
           <img
             src={fullscreenImage}
-            alt={album.title}
+            alt={lightstick.title}
             className="max-h-full max-w-full rounded-3xl object-contain"
             onClick={(e) => e.stopPropagation()}
           />

@@ -4,7 +4,9 @@ import { Footer } from '@/components/footer'
 import { Link } from '@/components/link'
 import { Navbar } from '@/components/navbar'
 import { Testimonials } from '@/components/testimonials'
+import { Heading, Subheading } from '@/components/text'
 import { getAlbums } from '@/data/albums'
+import { getPopularArtists } from '@/data/artists'
 import { ChevronRightIcon } from '@heroicons/react/16/solid'
 import type { Metadata } from 'next'
 
@@ -140,10 +142,124 @@ async function FeaturedAlbums() {
   )
 }
 
+async function ShopSection() {
+  const artists = getPopularArtists(6)
+  const fanNames = artists.map(artist => artist.fanName).filter(Boolean)
+
+  return (
+    <>
+      <Container className="pt-8 pb-16 sm:pt-12 sm:pb-24">
+        <Subheading>FANDOMS FROM KPOP ARTISTS</Subheading>
+        <div className="mt-2 -mx-4 px-4 sm:-mx-6 sm:px-6">
+          <Heading as="h2" className="flex justify-between">
+            {fanNames.length > 0 ? (
+              fanNames.map((fanName, index) => (
+                <span key={index}>{fanName}</span>
+              ))
+            ) : (
+              'SHOP'
+            )}
+          </Heading>
+        </div>
+      </Container>
+      <div className="relative pt-0 pb-12 sm:pb-24">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <div className="flex items-center">
+            <div className="text-left px-4 sm:px-6 lg:px-8">
+              <Subheading className="-mt-4">Pre-orders</Subheading>
+              <Heading as="h3" className="mt-2">
+                <span className="transition-all duration-200 hover:text-red-600 dark:hover:text-red-400 hover:drop-shadow-[0_0_8px_rgba(239,68,68,0.6)] cursor-pointer">
+                  Forudbestil de nyeste K-pop releases
+                </span>
+              </Heading>
+              <p className="mt-6 text-2xl font-medium text-gray-500 dark:text-gray-400">
+                Vær først til at få de nyeste K-pop albums, photobooks og merchandise. Forudbestil nu og sikre dig eksklusive fordele og tidlig levering.
+              </p>
+              <div className="mt-6 grid grid-cols-1 gap-6 sm:mt-8 lg:grid-cols-2 lg:grid-rows-3">
+                <div className="text-left">
+                  <h4 className="text-xs font-medium text-gray-400 dark:text-gray-500 uppercase tracking-wider">Kontrol</h4>
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-2 mb-3">Kontrollører</h3>
+                  <p className="text-sm/6 text-gray-500 dark:text-gray-400">
+                    Professionelt uddannede kontrollører med kontrolløruddannelse og idrætskontrollørkort. Sikrer effektiv kontrol til events og virksomheder.
+                  </p>
+                </div>
+                <div className="text-left">
+                  <h4 className="text-xs font-medium text-gray-400 dark:text-gray-500 uppercase tracking-wider">Natteliv</h4>
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-2 mb-3">Dørmænd</h3>
+                  <p className="text-sm/6 text-gray-500 dark:text-gray-400">
+                    Erfarne dørmænd med dørmandskort der sikrer tryghed og orden. Vagttjenester til natklubber, barer og events.
+                  </p>
+                </div>
+                <div className="text-left">
+                  <h4 className="text-xs font-medium text-gray-400 dark:text-gray-500 uppercase tracking-wider">Events</h4>
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-2 mb-3">Eventvagter</h3>
+                  <p className="text-sm/6 text-gray-500 dark:text-gray-400">
+                    Specialiserede eventvagter til koncerter, festivaler og private arrangementer. Sikkerhedsvagter der sikrer tryghed.
+                  </p>
+                </div>
+                <div className="text-left">
+                  <h4 className="text-xs font-medium text-gray-400 dark:text-gray-500 uppercase tracking-wider">Bevogtning</h4>
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-2 mb-3">Vagter</h3>
+                  <p className="text-sm/6 text-gray-500 dark:text-gray-400">
+                    Uddannede vagter med vagtuddannelse der sikrer effektiv overvågning og beskyttelse. Sikkerhedsvagter til virksomheder og private lokaler.
+                  </p>
+                </div>
+                <div className="text-left">
+                  <h4 className="text-xs font-medium text-gray-400 dark:text-gray-500 uppercase tracking-wider">Beskyttelse</h4>
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-2 mb-3">Personbeskyttelse</h3>
+                  <p className="text-sm/6 text-gray-500 dark:text-gray-400">
+                    Diskret og erfaren personbeskyttelse til VIP og privatpersoner. Bodyguard services og sikkerhedsassistance.
+                  </p>
+                </div>
+                <div className="text-left">
+                  <h4 className="text-xs font-medium text-gray-400 dark:text-gray-500 uppercase tracking-wider">Patruljering</h4>
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-2 mb-3">Rundering</h3>
+                  <p className="text-sm/6 text-gray-500 dark:text-gray-400">
+                    Regelmæssig patruljering og kontrol der forebygger indbrud og hærværk. Vagttjenester til boligområder og erhvervsejendomme.
+                  </p>
+                </div>
+              </div>
+              <div className="relative h-96 sm:h-[500px] md:h-[600px] lg:hidden mt-8 mb-8">
+                <div className="absolute inset-2 rounded-4xl ring-1 ring-black/5 ring-inset overflow-hidden">
+                  <img
+                    alt="K-pop produkter visning"
+                    loading="lazy"
+                    decoding="async"
+                    className="object-cover w-full h-full"
+                    src="/SHORT2.webp"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="hidden lg:block -mr-2">
+            <div className="relative h-full">
+              <div className="sticky top-24">
+                <div className="relative h-[1200px]">
+                  <div className="absolute inset-2 rounded-4xl ring-1 ring-black/5 ring-inset overflow-hidden">
+                    <img
+                      alt="K-pop produkter visning"
+                      loading="lazy"
+                      decoding="async"
+                      className="object-cover w-full h-full"
+                      src="/LONG2.webp"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  )
+}
+
 export default async function Home() {
   return (
     <div className="overflow-hidden">
       <Hero />
+      <ShopSection />
       <main>
         <div className="bg-linear-to-b from-black from-50% to-black py-32">
           <FeaturedAlbums />

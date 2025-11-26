@@ -8,11 +8,13 @@ export function AddToCartButton({
   albumId,
   quantity = 1,
   disabled = false,
+  type = 'album',
 }: {
   albumId: string
   quantity?: number
   versionId?: string
   disabled?: boolean
+  type?: 'album' | 'lightstick' | 'magazine' | 'photobook' | 'greeting' | 'dvd'
 }) {
   const { addItem, updateQuantity } = useCart()
   const [added, setAdded] = useState(false)
@@ -22,7 +24,7 @@ export function AddToCartButton({
     if (disabled) return
     // Add item with specified quantity
     for (let i = 0; i < quantity; i++) {
-      addItem(albumId)
+      addItem(albumId, type)
     }
     // If quantity > 1, update to correct quantity
     if (quantity > 1) {
