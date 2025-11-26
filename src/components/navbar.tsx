@@ -6,18 +6,17 @@ import {
   DisclosurePanel,
 } from '@headlessui/react'
 import { Bars2Icon } from '@heroicons/react/24/solid'
-import { ShoppingBagIcon } from '@heroicons/react/16/solid'
 import { motion } from 'framer-motion'
 import { useCart } from '@/contexts/cart-context'
 import { Link } from './link'
 import { Logo } from './logo'
 import { PlusGrid, PlusGridItem, PlusGridRow } from './plus-grid'
+import { NavbarAuth } from './navbar-auth'
 
 const links = [
   { href: '/shop', label: 'Shop' },
   { href: '/blog', label: 'Blog' },
   { href: '/company', label: 'About' },
-  { href: '/login', label: 'Login' },
 ]
 
 function CartIcon() {
@@ -28,12 +27,12 @@ function CartIcon() {
     <PlusGridItem className="relative flex">
       <Link
         href="/cart"
-        className="relative flex items-center px-4 py-3 text-base font-medium text-white bg-blend-multiply data-hover:bg-white/10"
+        className="relative flex items-center gap-2 px-4 py-3 text-base font-medium text-white bg-blend-multiply data-hover:bg-white/10"
         aria-label="Shopping cart"
       >
-        <ShoppingBagIcon className="size-5" />
+        Cart
         {itemCount > 0 && (
-          <span className="absolute right-2 top-2 flex size-5 items-center justify-center rounded-full bg-white text-xs font-semibold text-black">
+          <span className="flex size-5 items-center justify-center rounded-full bg-white text-xs font-semibold text-black">
             {itemCount > 9 ? '9+' : itemCount}
           </span>
         )}
@@ -55,6 +54,7 @@ function DesktopNav() {
           </Link>
         </PlusGridItem>
       ))}
+      <NavbarAuth />
       <CartIcon />
     </nav>
   )
@@ -103,11 +103,23 @@ function MobileNav() {
             rotateX: { duration: 0.3, delay: links.length * 0.1 },
           }}
         >
+          <div className="flex flex-col gap-4">
+            <NavbarAuth />
+          </div>
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, rotateX: -90 }}
+          animate={{ opacity: 1, rotateX: 0 }}
+          transition={{
+            duration: 0.15,
+            ease: 'easeInOut',
+            rotateX: { duration: 0.3, delay: (links.length + 1) * 0.1 },
+          }}
+        >
           <Link
             href="/cart"
             className="flex items-center gap-2 text-base font-medium text-white"
           >
-            <ShoppingBagIcon className="size-5" />
             Cart
             {itemCount > 0 && (
               <span className="flex size-5 items-center justify-center rounded-full bg-white text-xs font-semibold text-black">

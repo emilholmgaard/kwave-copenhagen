@@ -4,7 +4,7 @@ import { Footer } from '@/components/footer'
 import { Link } from '@/components/link'
 import { Navbar } from '@/components/navbar'
 import { Testimonials } from '@/components/testimonials'
-import { getFeaturedAlbums } from '@/data/albums'
+import { getAlbums } from '@/data/albums'
 import { ChevronRightIcon } from '@heroicons/react/16/solid'
 import type { Metadata } from 'next'
 
@@ -57,16 +57,16 @@ function Hero() {
 }
 
 async function FeaturedAlbums() {
-  const featuredAlbums = getFeaturedAlbums(3)
+  const allAlbums = getAlbums()
 
-  if (featuredAlbums.length === 0) {
+  if (allAlbums.length === 0) {
     return null
   }
 
   return (
     <Container className="pb-24">
       <div className="mt-16 grid grid-cols-1 gap-8 lg:grid-cols-2">
-        {featuredAlbums.map((album) => (
+        {allAlbums.map((album) => (
           <div key={album.id} className="product-teaser group relative overflow-hidden rounded-3xl shadow-2xl ring-1 ring-white/10">
             <div
               className="product-teaser__block absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"

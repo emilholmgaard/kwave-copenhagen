@@ -36,11 +36,6 @@ export function AlbumCard({ album }: { album: Album }) {
             </span>
           )}
         </div>
-        {album.featured && (
-          <span className="mb-2 inline-block rounded-full bg-white/20 px-2 py-0.5 text-xs font-medium text-white">
-            Featured
-          </span>
-        )}
         <div className="text-sm/5 font-medium text-gray-300">
           {album.artist}
         </div>

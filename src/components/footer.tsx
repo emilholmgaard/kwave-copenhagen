@@ -10,14 +10,14 @@ function CallToAction() {
   return (
     <div className="relative pt-20 pb-16 text-center sm:py-24">
       <hgroup>
-        <Subheading>Get started</Subheading>
-        <p className="mt-6 text-3xl font-medium tracking-tight text-gray-950 sm:text-5xl">
+        <Subheading className="text-white">Get started</Subheading>
+        <p className="mt-6 text-3xl font-medium tracking-tight text-white sm:text-5xl">
           Ready to dive in?
           <br />
           Start your free trial today.
         </p>
       </hgroup>
-      <p className="mx-auto mt-6 max-w-xs text-sm/6 text-gray-500">
+      <p className="mx-auto mt-6 max-w-xs text-sm/6 text-gray-300">
         Get the cheat codes for selling and unlock your team&apos;s revenue
         potential.
       </p>
@@ -31,7 +31,7 @@ function CallToAction() {
 }
 
 function SitemapHeading({ children }: { children: React.ReactNode }) {
-  return <h3 className="text-sm/6 font-medium text-gray-950/50">{children}</h3>
+  return <h3 className="text-sm/6 font-medium text-gray-300">{children}</h3>
 }
 
 function SitemapLinks({ children }: { children: React.ReactNode }) {
@@ -43,7 +43,7 @@ function SitemapLink(props: React.ComponentPropsWithoutRef<typeof Link>) {
     <li>
       <Link
         {...props}
-        className="font-medium text-gray-950 data-hover:text-gray-950/75"
+        className="font-medium text-white data-hover:text-gray-300"
       />
     </li>
   )
@@ -121,7 +121,7 @@ function SocialLinks() {
         href="https://facebook.com"
         target="_blank"
         aria-label="Visit us on Facebook"
-        className="text-gray-950 data-hover:text-gray-950/75"
+        className="text-white data-hover:text-gray-300"
       >
         <SocialIconFacebook className="size-4" />
       </Link>
@@ -129,7 +129,7 @@ function SocialLinks() {
         href="https://x.com"
         target="_blank"
         aria-label="Visit us on X"
-        className="text-gray-950 data-hover:text-gray-950/75"
+        className="text-white data-hover:text-gray-300"
       >
         <SocialIconX className="size-4" />
       </Link>
@@ -137,7 +137,7 @@ function SocialLinks() {
         href="https://linkedin.com"
         target="_blank"
         aria-label="Visit us on LinkedIn"
-        className="text-gray-950 data-hover:text-gray-950/75"
+        className="text-white data-hover:text-gray-300"
       >
         <SocialIconLinkedIn className="size-4" />
       </Link>
@@ -147,7 +147,7 @@ function SocialLinks() {
 
 function Copyright() {
   return (
-    <div className="text-sm/6 text-gray-950">
+    <div className="text-sm/6 text-white">
       &copy; {new Date().getFullYear()} Radiant Inc.
     </div>
   )
@@ -156,8 +156,12 @@ function Copyright() {
 export function Footer() {
   return (
     <footer>
-      <Gradient className="relative">
-        <div className="absolute inset-2 rounded-4xl bg-white/80" />
+      <Gradient className="relative" colors={{
+        primary: '#1a1a1a',
+        secondary: '#2d2d2d',
+        tertiary: '#1a1a1a'
+      }}>
+        <div className="absolute inset-2 rounded-4xl bg-black/80" />
         <Container>
           <CallToAction />
           <PlusGrid className="pb-16">

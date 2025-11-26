@@ -9,7 +9,6 @@ import { Navbar } from '@/components/navbar'
 import { Heading, Lead, Subheading } from '@/components/text'
 import { useCart } from '@/contexts/cart-context'
 import {
-  ChevronLeftIcon,
   MinusIcon,
   PlusIcon,
   ShoppingBagIcon,
@@ -28,12 +27,21 @@ export default function CartPage() {
 
   // Moms-sats i Danmark er 25%
   const VAT_RATE = 0.25
+  // Gratis fragt over 800 kr
+  const FREE_SHIPPING_THRESHOLD = 800
+  const SHIPPING_COST = 49 // Standard fragtpris
 
   const cartAlbums = getCartAlbums()
   const totalWithVAT = getTotalPrice()
   const totalWithoutVAT = totalWithVAT / (1 + VAT_RATE)
   const totalVAT = totalWithVAT - totalWithoutVAT
   const totalItems = getTotalItems()
+  
+  // Beregn fragt
+  const qualifiesForFreeShipping = totalWithVAT >= FREE_SHIPPING_THRESHOLD
+  const shippingCost = qualifiesForFreeShipping ? 0 : SHIPPING_COST
+  const amountNeededForFreeShipping = Math.max(0, FREE_SHIPPING_THRESHOLD - totalWithVAT)
+  const finalTotal = totalWithVAT + shippingCost
 
   if (cartAlbums.length === 0) {
     return (
@@ -209,21 +217,35 @@ export default function CartPage() {
                 </div>
                 <div className="flex justify-between text-sm text-gray-300">
                   <span>Shipping</span>
-                  <span className="font-medium text-white">Free</span>
+                  <span className="font-medium text-white">
+                    {qualifiesForFreeShipping ? 'Free' : `${shippingCost.toFixed(0)} DKK`}
+                  </span>
                 </div>
+                {!qualifiesForFreeShipping && amountNeededForFreeShipping > 0 && (
+                  <div className="rounded-lg bg-blue-500/20 border border-blue-500/50 p-3 text-sm">
+                    <p className="text-blue-300">
+                      Add {amountNeededForFreeShipping.toFixed(2).replace('.', ',')} DKK more for <strong>free shipping</strong>!
+                    </p>
+                  </div>
+                )}
+                {qualifiesForFreeShipping && (
+                  <div className="rounded-lg bg-green-500/20 border border-green-500/50 p-3 text-sm">
+                    <p className="text-green-300">
+                      You qualify for <strong>free shipping</strong>!
+                    </p>
+                  </div>
+                )}
                 <hr className="border-white/10" />
                 <div className="flex justify-between text-lg font-semibold text-white">
                   <span>Total (inkl. moms)</span>
-                  <span>{totalWithVAT.toFixed(2).replace('.', ',')} DKK</span>
+                  <span>{finalTotal.toFixed(2).replace('.', ',')} DKK</span>
                 </div>
               </div>
-              <div className="mt-8 space-y-3">
-                <Button variant="secondary" href="/checkout" className="w-full gap-2">
-                  <ShoppingBagIcon className="size-4" />
+              <div className="mt-8 flex flex-wrap gap-3">
+                <Button variant="secondary" href="/checkout" className="w-[180px] !text-base">
                   Proceed to Checkout
                 </Button>
-                <Button variant="outline" href="/shop" className="w-full gap-2">
-                  <ChevronLeftIcon className="size-4" />
+                <Button variant="outline" href="/shop" className="w-[180px] !text-base">
                   Continue Shopping
                 </Button>
               </div>
