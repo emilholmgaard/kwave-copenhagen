@@ -7,7 +7,7 @@ import { Testimonials } from '@/components/testimonials'
 import { Heading, Subheading } from '@/components/text'
 import { getAlbums } from '@/data/albums'
 import { getPopularArtists } from '@/data/artists'
-import { ChevronRightIcon } from '@heroicons/react/16/solid'
+import { ChevronRightIcon, EnvelopeIcon } from '@heroicons/react/16/solid'
 import type { Metadata } from 'next'
 import { AlbumSection } from '@/components/album-section'
 
@@ -18,11 +18,11 @@ export const metadata: Metadata = {
 
 function Hero() {
   return (
-    <div className="relative">
+    <div className="relative min-h-[400px] sm:min-h-[500px] md:min-h-[600px]">
       <div className="absolute inset-2 bottom-0 rounded-4xl ring-1 ring-black/5 ring-inset overflow-hidden">
         <iframe
           src="https://www.youtube.com/embed/mhKCRnUKp5U?autoplay=1&loop=1&mute=1&playlist=mhKCRnUKp5U&controls=0&showinfo=0&modestbranding=1&rel=0&iv_load_policy=3&playsinline=1"
-          className="h-full w-full scale-150"
+          className="h-full w-full scale-[3] sm:scale-[2.5] md:scale-[2] lg:scale-150"
           allow="autoplay; encrypted-media"
           allowFullScreen
           style={{ border: 'none', transformOrigin: 'center' }}
@@ -31,7 +31,7 @@ function Hero() {
       <div className="absolute inset-2 bottom-0 rounded-4xl bg-black/40" />
       <Container className="relative">
         <Navbar />
-        <div className="pt-16 pb-24 sm:pt-24 sm:pb-32 md:pt-32 md:pb-48">
+        <div className="pt-12 pb-16 sm:pt-16 sm:pb-20 md:pt-20 md:pb-28">
           <div className="relative rounded-full px-3 py-1 text-sm/6 text-white ring-1 ring-white/10 hover:ring-white/20 inline-block">
             Populært produkt.{' '}
             <Link href="/shop" className="font-semibold text-gray-900 dark:text-white">
@@ -164,21 +164,21 @@ async function ShopSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           <div className="flex items-center">
             <div className="text-left px-4 sm:px-6 lg:px-8">
-              <Subheading className="-mt-4">Pre-orders</Subheading>
+              <Subheading className="-mt-4">PRE-ORDERS</Subheading>
               <Heading as="h3" className="mt-2">
-                <span className="transition-all duration-200 hover:text-red-600 dark:hover:text-red-400 hover:drop-shadow-[0_0_8px_rgba(239,68,68,0.6)] cursor-pointer">
-                  Forudbestil de nyeste K-pop releases
+                <span className="text-blue-400 drop-shadow-[0_0_8px_rgba(96,165,250,0.8)] transition-all duration-200 hover:text-blue-300 hover:drop-shadow-[0_0_12px_rgba(96,165,250,1)] cursor-pointer">
+                  Pre-order the latest K-pop releases
                 </span>
               </Heading>
               <p className="mt-6 text-2xl font-medium text-gray-500 dark:text-gray-400">
-                Vær først til at få de nyeste K-pop albums, photobooks og merchandise. Forudbestil nu og sikre dig eksklusive fordele og tidlig levering.
+                Pre-order now and secure exclusive benefits, limited editions, and early delivery on the latest K-pop releases.
               </p>
               <AlbumSection
                 albums={[
                   {
                     artist: 'WayV',
                     title: 'Winter Special Album',
-                    description: 'Winter Special Album - Begrænsede og eksklusive albumudgaver med særlige fotobooks, signerede kort og unikt merchandise.',
+                    description: 'Winter Special Album - Limited and exclusive album editions with special photobooks, signed cards and unique merchandise.',
                     price: '219,95 DKK',
                     albumId: 'wayv-winter-special',
                     isPreOrder: true,
@@ -186,7 +186,7 @@ async function ShopSection() {
                   {
                     artist: 'ITZY',
                     title: 'TUNNEL VISION',
-                    description: 'TUNNEL VISION - Begrænsede og eksklusive albumudgaver med særlige fotobooks, signerede kort og unikt merchandise.',
+                    description: 'TUNNEL VISION - Limited and exclusive album editions with special photobooks, signed cards and unique merchandise.',
                     price: '169,95 DKK',
                     albumId: 'itzy-tunnel-vision',
                     isPreOrder: true,
@@ -194,7 +194,7 @@ async function ShopSection() {
                   {
                     artist: 'TAEYEON',
                     title: 'Panorama',
-                    description: 'Panorama - Begrænsede og eksklusive albumudgaver med særlige fotobooks, signerede kort og unikt merchandise.',
+                    description: 'Panorama - Limited and exclusive album editions with special photobooks, signed cards and unique merchandise.',
                     price: '249,95 DKK',
                     albumId: 'taeyeon-panorama',
                     isPreOrder: true,
@@ -202,7 +202,7 @@ async function ShopSection() {
                   {
                     artist: 'tripleS msnz',
                     title: 'Beyond Beauty',
-                    description: 'Beyond Beauty - Begrænsede og eksklusive albumudgaver med særlige fotobooks, signerede kort og unikt merchandise.',
+                    description: 'Beyond Beauty - Limited and exclusive album editions with special photobooks, signed cards and unique merchandise.',
                     price: '219,95 DKK',
                     albumId: 'triples-msnz-beyond-beauty',
                     isPreOrder: true,
@@ -210,7 +210,7 @@ async function ShopSection() {
                   {
                     artist: 'RESCENE',
                     title: 'lip bomb',
-                    description: 'lip bomb - Begrænsede og eksklusive albumudgaver med særlige fotobooks, signerede kort og unikt merchandise.',
+                    description: 'lip bomb - Limited and exclusive album editions with special photobooks, signed cards and unique merchandise.',
                     price: '219,95 DKK',
                     albumId: 'rescene-lip-bomb',
                     isPreOrder: true,
@@ -218,9 +218,25 @@ async function ShopSection() {
                   {
                     artist: 'CHA EUN-WOO (ASTRO)',
                     title: 'ELSE',
-                    description: 'ELSE - Begrænsede og eksklusive albumudgaver med særlige fotobooks, signerede kort og unikt merchandise.',
+                    description: 'ELSE - Limited and exclusive album editions with special photobooks, signed cards and unique merchandise.',
                     price: '219,95 DKK',
                     albumId: 'cha-eun-woo-else',
+                    isPreOrder: true,
+                  },
+                  {
+                    artist: 'SEVENTEEN',
+                    title: '2026 SEASON\'S GREETINGS',
+                    description: '2026 SEASON\'S GREETINGS - Limited and exclusive album editions with special photobooks, signed cards and unique merchandise.',
+                    price: '409,95 DKK',
+                    albumId: 'seventeen-2026-season-greetings',
+                    isPreOrder: true,
+                  },
+                  {
+                    artist: 'LE SSERAFIM',
+                    title: '2026 SEASON\'S GREETINGS',
+                    description: '2026 SEASON\'S GREETINGS - Limited and exclusive album editions with special photobooks, signed cards and unique merchandise.',
+                    price: '409,95 DKK',
+                    albumId: 'le-sserafim-2026-season-greetings',
                     isPreOrder: true,
                   },
                 ]}
@@ -253,6 +269,35 @@ async function ShopSection() {
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="pt-16 pb-16 sm:pt-24 sm:pb-24 w-full">
+        <div className="text-left px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col lg:flex-row lg:items-center gap-8">
+            <div className="flex-1">
+              <h2 className="dark:text-white font-mono text-xs/5 font-semibold tracking-widest text-gray-500 uppercase data-dark:text-gray-400">
+                Kontakt os i dag
+              </h2>
+              <h3 className="mt-2 dark:text-white text-4xl font-medium tracking-tighter text-pretty text-gray-950 data-dark:text-white sm:text-6xl">
+                <span className="transition-all duration-200 hover:text-red-600 dark:hover:text-red-400 hover:drop-shadow-[0_0_8px_rgba(239,68,68,0.6)] cursor-pointer">
+                  Har du brug for vagttjenester i København?
+                </span>
+              </h3>
+              <p className="mt-6 text-base/6 text-gray-600 dark:text-gray-400 max-w-2xl">
+                Kontakt os i dag for en uforpligtende samtale og få et tilbud på dine vagttjenester. Vi er klar til at hjælpe dig med at sikre tryghed og orden.
+              </p>
+            </div>
+            <div className="lg:flex-shrink-0">
+              <Button
+                variant="outline"
+                href="mailto:hej@trustsecurity.dk?subject=Vagttjenester i København [REF: CTA-X7K9P2]&body=Hej Trust Security Service ApS,%0D%0A%0D%0AJeg er interesseret i at høre mere om jeres vagttjenester i København:%0D%0A%0D%0A- Hvilke muligheder I kan tilbyde%0D%0A- Priser og vilkår%0D%0A- Mulighed for et møde%0D%0A%0D%0AMed venlig hilsen"
+                className="text-lg px-6 py-2 flex items-center gap-2"
+              >
+                <EnvelopeIcon className="size-6" />
+                Send mail
+              </Button>
             </div>
           </div>
         </div>

@@ -192,9 +192,9 @@ export function Testimonials() {
     <div className="overflow-hidden py-32">
       <Container>
         <div ref={setReferenceWindowRef}>
-          <Subheading>What everyone is saying</Subheading>
+          <Subheading>Shop by artist</Subheading>
           <Heading as="h3" className="mt-2">
-            Trusted by professionals.
+            Find your favorite K-pop artists.
           </Heading>
         </div>
       </Container>

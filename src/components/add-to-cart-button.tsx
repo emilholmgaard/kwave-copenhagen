@@ -3,6 +3,7 @@
 import { Button } from './button'
 import { useCart } from '@/contexts/cart-context'
 import { useState } from 'react'
+import { clsx } from 'clsx'
 
 export function AddToCartButton({
   albumId,
@@ -41,7 +42,7 @@ export function AddToCartButton({
       variant="secondary"
       onClick={handleClick}
       data-disabled={disabled ? true : undefined}
-      className={className}
+      className={clsx(className, 'data-hover:bg-white data-hover:text-blue-400 data-hover:ring-blue-400 data-hover:drop-shadow-[0_0_8px_rgba(96,165,250,0.8)]')}
     >
       {added ? 'Added!' : 'Add to Cart'}
     </Button>
