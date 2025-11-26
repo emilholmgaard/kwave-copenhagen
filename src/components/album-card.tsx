@@ -11,7 +11,7 @@ export function AlbumCard({ album }: { album: Album }) {
   return (
     <Link
       href={`/shop/${album.slug}`}
-      className="group relative flex flex-row gap-2 rounded-3xl bg-black/60 backdrop-blur-sm p-2 shadow-md ring-1 ring-white/10 transition-all hover:ring-white/20 cursor-pointer"
+      className="group relative flex flex-row items-stretch gap-2 rounded-3xl bg-black/60 backdrop-blur-sm p-2 shadow-md ring-1 ring-white/10 transition-all hover:ring-white/20 cursor-pointer"
     >
       <div className="flex flex-1 flex-col p-4">
         <div className="mb-3 flex flex-wrap items-center gap-2">
@@ -74,10 +74,8 @@ export function AlbumCard({ album }: { album: Album }) {
           </Button>
         </div>
         <div className="mt-6 flex items-center justify-between" onClick={(e) => e.stopPropagation()}>
-          <div className="inline-flex items-center rounded-full bg-white/10 px-4 py-2">
-            <span className="text-xl font-semibold text-white">
-              {album.price} {album.currency}
-            </span>
+          <div className="text-base font-medium text-gray-300">
+            {album.price} {album.currency}
           </div>
           {album.inStock || album.isPreOrder ? (
             <div className="flex gap-2">

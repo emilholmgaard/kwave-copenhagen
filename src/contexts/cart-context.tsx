@@ -81,13 +81,11 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   }
 
   const getTotalPrice = () => {
-    const total = items.reduce((total, item) => {
+    return items.reduce((total, item) => {
       const albumData = albums.find((a) => a.id === item.albumId)
       if (!albumData) return total
       return total + albumData.price * item.quantity
     }, 0)
-    // Round to 2 decimal places to avoid floating point errors
-    return Math.round(total * 100) / 100
   }
 
   const getCartAlbums = () => {
